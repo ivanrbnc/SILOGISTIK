@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<body>
+<nav th:fragment="navbar(active)" class="navbar navbar-expand-lg navbar-light" style="background-color: #3da5ef;">
+    <a class="navbar-brand fw-bold text-white ms-3" href="/" >SILOGISTIK</a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <!-- https://stackoverflow.com/questions/33086554/bootstrap-navbar-highlighting-in-thymeleafs-layout -->
+            <li class="nav-item dropdown">
+                <a th:class="${active == 'gudang' or active == 'home'} ? 'nav-link active text-white dropdown-toggle' : 'nav-link dropdown-toggle'" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gudang
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" th:href="@{/gudang}">Daftar Gudang</a></li>
+                  <li><a class="dropdown-item" th:href="@{/gudang/cari-barang}">Cari Barang</a></li>
+                </ul>
+              </li>
+            <li class="nav-item">
+                <a th:class="${active == 'barang' or active == 'home'} ? 'nav-link active text-white' : 'nav-link'" th:href="@{/barang}">Barang</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${active == 'permintaanPengiriman' or active == 'home'} ? 'nav-link active text-white' : 'nav-link'" th:href="@{/}">Permintaan Pengiriman</a>
+            </li>
+            <li class="nav-item">
+                <a th:class="${active == 'bonus' or active == 'home'} ? 'nav-link active text-white' : 'nav-link'" th:href="@{/}">Bonus</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

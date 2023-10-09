@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <title>Home</title>
+    <style>
+        .square {
+            width: 250px; 
+            height: 200px; 
+            background-color: #3498db; 
+            margin: 15px; 
+        }
+    </style>
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar :: navbar(active='home')}"></nav>
+<div class="container text-center">
+    <div class="row pt-5 pb-2">
+        <img 
+            src="https://cdn.discordapp.com/attachments/935244474349678633/1160177032454484060/image.png?ex=6533b60f&is=6521410f&hm=dced7a5251bcb39e72f2b2da45a84163a8f3f936ace14e6bbd712b0234b2dd51&"
+            style="width: 25%;"
+            class="mx-auto">
+    </div>
+
+    <table class="mx-auto">
+        <tr>
+            <td class="square">
+                <div class="content">
+                    <p style="font-size: 18px;">Gudang</p>
+                    <h2 th:text="${gudangSize}"></h2>
+                    <p style="font-size: 18px;">gudang</p>
+                </div>
+            </td>
+            <td class="spacer" style="width: 50px"></td>
+            <td class="square">
+                <div class="content">
+                    <p style="font-size: 18px;">Barang</p>
+                    <h2 th:text="${barangSize}"></h2>
+                    <p style="font-size: 18px;">barang</p>
+                </div>
+            </td>
+            <td class="spacer" style="width: 50px"></td>
+            <td class="square">
+                <div class="content">
+                    <p style="font-size: 18px;">Permintaan pengiriman</p>
+                    <h2 th:text="0"></h2>
+                    <p style="font-size: 18px;">permintaan pengiriman</p>
+                </div>
+            </td>
+            <td class="spacer" style="width: 50px"></td>
+            <td class="square">
+                <div class="content">
+                    <p style="font-size: 18px;">Karyawan</p>
+                    <h2 th:text="${karyawanSize}"></h2>
+                    <p style="font-size: 18px;">karyawan</p>
+                </div>
+            </td>
+        </tr>
+    </table>    
+</div>
+
+</body>
+
+</html>

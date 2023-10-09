@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View Barang</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+        $('#cariBarangTable').DataTable({
+            "ordering": false,
+            "lengthMenu": [],
+            "searching": false,
+            "paging": false,
+            "info": false
+        });
+    });
+  </script>
+
+</head>
+
+<body>
+  <nav th:replace="~{fragments/navbar :: navbar(active='gudang')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Cari Barang</h2>
+    </div>
+    <div class="text-center pt-3">
+        <form th:action="@{/gudang/cari-barang}" method="GET">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <select class="form-control" name="sku" style="width: 150px;">
+                    <option th:each="barang : ${listBarang}" 
+                            th:value="${barang.sku}" 
+                            th:text="${barang.merk}"
+                           >
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-primary ml-2">Cari</button>
+            </div>
+        </form>
+      </div>    
+    <div class="row justify-content-center">
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <div>
+                    <table id="cariBarangTable" class="table dataTable">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Nama Gudang</th>
+                              <th>Alamat Gudang</th>
+                              <th>Stok</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="gudangBarang, iterationStatus : ${listGudangBarang}">
+                          <td th:text="${iterationStatus.index + 1}"></td>
+                          <td th:text="${gudangBarang.gudang.nama}"></td>
+                          <td th:text="${gudangBarang.gudang.alamatGudang}"></td>
+                          <td th:text="${gudangBarang.stok}"></td>
+                        </tr>
+                      </tbody>
+                    </table>            
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
