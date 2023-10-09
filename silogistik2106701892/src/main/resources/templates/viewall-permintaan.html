@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View All Permintaan</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+        $('#permintaanTable').DataTable({
+            "ordering": false,
+            "lengthMenu": [],
+            "searching": false,
+            "paging": false,
+            "info": false 
+        });
+    });
+  </script>
+
+</head>
+
+<body>
+  <nav th:replace="~{fragments/navbar :: navbar(active='permintaanPengiriman')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Daftar Permintaan Pengiriman</h2>
+    </div>
+
+    <td>
+        <a type="button" class="btn btn-md btn-primary" th:href="@{/permintaan-pengiriman/tambah}" style="align-items: center; justify-content: center; margin-bottom: 20px;">
+          + Tambah Permintaan Pengiriman
+        </a>
+    </td>
+    
+    <table id="permintaanTable" class="table dataTable">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>Waktu Permintaan</th>
+              <th>Nomor Pengiriman</th>
+              <th>Nama Penerima</th>
+              <th>Alamat Penerima</th>
+              <th>Tanggal Pengiriman</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr th:each="permintaan, iterationStatus : ${listPermintaan}">
+          <td th:text="${iterationStatus.index + 1}"></td>
+          <td th:text="${permintaan.waktuPermintaanString}"></td>
+          <td th:text="${permintaan.nomorPengiriman}"></td>
+          <td th:text="${permintaan.namaPenerima}"></td>
+          <td th:text="${permintaan.alamatPenerima}"></td>
+          <td th:text="${permintaan.tanggalPengirimanString}"></td>
+          <td>
+            <a type="button" class="btn btn-md btn-secondary" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}(idPermintaanPengiriman=${permintaan.idPermintaanPengiriman})}">Detail</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

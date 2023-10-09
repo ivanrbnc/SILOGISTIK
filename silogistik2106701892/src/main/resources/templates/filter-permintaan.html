@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+  <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+  <title>View Barang</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script type="text/javascript" src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+        $('#filterPermintaanPengirimanTable').DataTable({
+            "ordering": false,
+            "lengthMenu": [],
+            "searching": false,
+            "paging": false,
+            "info": false
+        });
+    });
+  </script>
+
+</head>
+
+<body>
+  <nav th:replace="~{fragments/navbar :: navbar(active='bonus')}"></nav>
+  <div class="container">
+    <div class="text-center pt-5">
+      <h2>Filter Permintaan Pengiriman</h2>
+    </div>
+    <div class="text-center pt-3">
+        <form th:action="@{/filter-permintaan-pengiriman}" method="GET">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">            
+                <select class="form-control" name="sku" style="width: 150px;">
+                    <option th:each="barang : ${listBarang}" 
+                            th:value="${barang.sku}" 
+                            th:text="${barang.merk}">
+                    </option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">            
+                <div class="form-group" style="margin-right: 10px;">
+                    <input class="form-control" type="date" name="startDate">
+                </div>
+                <span style="margin-right: 10px;">hingga</span>
+                <div class="form-group" style="margin-right: 10px;">
+                    <input class="form-control" type="date" name="endDate">
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </form>
+      </div>    
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <table id="filterPermintaanPengirimanTable" class="table dataTable">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Waktu Permintaan</th>
+                              <th>Nomor Pengiriman</th>
+                              <th>Nama Penerima</th>
+                              <th>Alamat Penerima</th>
+                              <th>Tanggal Pengiriman</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="permintaanPengiriman, iterationStatus : ${listShowed}">
+                          <td th:text="${iterationStatus.index + 1}"></td>
+                          <td th:text="${permintaanPengiriman.waktuPermintaanString}"></td>
+                          <td th:text="${permintaanPengiriman.nomorPengiriman}"></td>
+                          <td th:text="${permintaanPengiriman.namaPenerima}"></td>
+                          <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
+                          <td th:text="${permintaanPengiriman.tanggalPengirimanString}"></td>
+                        </tr>
+                      </tbody>
+                    </table>            
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
