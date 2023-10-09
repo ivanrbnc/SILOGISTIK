@@ -40,7 +40,7 @@ public class BonusController {
 
         List<PermintaanPengiriman> listShowed = null; 
 
-        if (sku != null && startDate != null && endDate != null) {
+        if (sku != null && !startDate.isEmpty() && !endDate.isEmpty()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate temp = LocalDate.parse(startDate, formatter);
             LocalDateTime tempStartDate = temp.atStartOfDay();

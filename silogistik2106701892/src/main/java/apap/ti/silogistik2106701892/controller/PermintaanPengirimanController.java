@@ -1,5 +1,6 @@
 package apap.ti.silogistik2106701892.controller;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,6 +58,18 @@ public class PermintaanPengirimanController {
 
         String[] types = {"Same Day", "Kilat", "Reguler", "Hemat"};
         String type = types[permintaanPengiriman.getJenisLayanan() - 1];
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime createdTime = permintaanPengiriman.getWaktuPermintaan();
+
+        Duration duration = Duration.between(currentDateTime, createdTime);
+
+        if (duration.toHours() < 24) {
+            model.addAttribute("canCancel", true);
+        } else {
+            model.addAttribute("canCancel", false);
+        }
+        
 
         model.addAttribute("permintaanPengiriman", permintaanPengiriman);
         model.addAttribute("permintaanPengirimanBarang", permintaanPengirimanBarang);

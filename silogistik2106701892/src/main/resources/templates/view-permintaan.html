@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="text-center m-3">
-        <a type="button" class="btn btn-danger btn-md" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}/cancel(idPermintaanPengiriman=${permintaanPengiriman.idPermintaanPengiriman})}">Cancel Permintaan</a>
+        <a type="button" class="btn btn-danger btn-md" th:disabled="${canCancel} == false" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}/cancel(idPermintaanPengiriman=${permintaanPengiriman.idPermintaanPengiriman})}">Cancel Permintaan</a>
         <a type="button" class="btn btn-secondary btn-md" href="/permintaan-pengiriman">Kembali</a>
     </div>
     </div>
