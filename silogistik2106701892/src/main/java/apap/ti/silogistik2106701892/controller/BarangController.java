@@ -86,7 +86,9 @@ public class BarangController {
         barang.setSku(type + skuNumber);
         barangService.saveBarang(barang);
 
-        return "success";
+        model.addAttribute("sku", barang.getSku());
+
+        return "success-add-barang";
     }
 
     @GetMapping("barang/{idBarang}/ubah")
@@ -123,6 +125,8 @@ public class BarangController {
         var barangFromDto = barangMapper.updateBarangRequestDTOToBarang(barangDTO);
         barangService.updateBarang(barangFromDto);
 
-        return "success";
+        model.addAttribute("sku", barangFromDto.getSku());
+
+        return "success-update-barang";
     }
 }

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
   <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
-  <title>Form Restock Barang</title>
+  <title>Form Add Permintaan Pengiriman</title>
 </head>
 
 <body>
@@ -32,21 +32,20 @@
                             </tr>
                             </tbody>
                         </table>
-                        <br><br>  
 
                         Nama Penerima: <br>
                         <textarea class="form-control" th:field="*{namaPenerima}"></textarea>
-                        <br><br>    
+                        <br>   
 
                         Alamat Penerima: <br>
                         <textarea class="form-control" th:field="*{alamatPenerima}"></textarea>
-                        <br><br>  
+                        <br>
                         
                         Tanggal Pengiriman: <br>
                         <div class="form-group">
                             <input class="form-control" type="date" th:field="*{tanggalPengirimanString}">
                         </div>
-                        <br><br>  
+                        <br>
 
                         Jenis Layanan: <br>
                         <select class="form-control" th:field="*{jenisLayanan}">
@@ -55,11 +54,11 @@
                             <option value="3">Reguler</option>
                             <option value="4">Hemat</option>
                         </select>
-                        <br><br>
+                        <br>
                         
                         Biaya Pengiriman: <br>
                         <input class="form-control" type="number" th:field="*{biayaPengiriman}"/>
-                        <br><br>                  
+                        <br>            
                                            
                         <th class="d-flex justify-content-end">
                             <button class="btn btn-primary" type="submit" name="addRow" style="text-align:right">Tambah Barang</button>

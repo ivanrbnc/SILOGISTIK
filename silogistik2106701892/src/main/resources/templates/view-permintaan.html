@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
   <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
-  <title>View Gudang</title>
+  <title>View Permintaan Pengiriman</title>
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <script type="text/javascript" src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   
@@ -31,7 +31,7 @@
     </div>
     
     <div class="row justify-content-center">
-        <div class="card" style="width: 30rem;">
+        <div class="card">
             <div class="card-body">
                 <div>
                     <p class="card-text m-0"><b>No. Permintaan Pengiriman:</b></p>
@@ -81,8 +81,8 @@
         </div>
     </div>
     <div class="text-center m-3">
-        <a type="button" class="btn btn-danger btn-md" th:disabled="${canCancel} == false" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}/cancel(idPermintaanPengiriman=${permintaanPengiriman.idPermintaanPengiriman})}">Cancel Permintaan</a>
         <a type="button" class="btn btn-secondary btn-md" href="/permintaan-pengiriman">Kembali</a>
+        <a type="button" class="btn btn-danger btn-md" th:disabled="${canCancel} == false" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}/cancel(idPermintaanPengiriman=${permintaanPengiriman.idPermintaanPengiriman})}">Cancel Permintaan</a>
     </div>
     </div>
 </body>

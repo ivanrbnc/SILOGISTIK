@@ -98,7 +98,9 @@ public class GudangController {
             gudangBarangService.saveGudangBarang(gudangBarang, gudang, barang, stok);
         }
 
-        return "success";
+        model.addAttribute("namaGudang", gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang()).getNama());
+
+        return "success-restock-barang";
     }
 
     @GetMapping("gudang/cari-barang")

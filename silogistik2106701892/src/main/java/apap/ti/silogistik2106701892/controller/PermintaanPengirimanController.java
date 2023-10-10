@@ -70,7 +70,6 @@ public class PermintaanPengirimanController {
             model.addAttribute("canCancel", false);
         }
         
-
         model.addAttribute("permintaanPengiriman", permintaanPengiriman);
         model.addAttribute("permintaanPengirimanBarang", permintaanPengirimanBarang);
         model.addAttribute("barangService", barangService);
@@ -152,13 +151,16 @@ public class PermintaanPengirimanController {
             permintaanPengirimanBarangService.savePermintaanPengirimanBarang(permintaan);
         }
 
-        return "success";
+        model.addAttribute("nomorPengiriman", permintaanPengiriman.getNomorPengiriman());
+        return "success-add-permintaan";
     }
 
     @GetMapping("permintaan-pengiriman/{idPermintaanPengiriman}/cancel")
     public String cancelPermintaan(@PathVariable("idPermintaanPengiriman") Long idPermintaanPengiriman, Model model) {
         var permintaanPengiriman = permintaanPengirimanService.getPermintaanById(idPermintaanPengiriman);
         permintaanPengirimanService.deletePermintaan(permintaanPengiriman);
-        return "success";
+        
+        model.addAttribute("nomorPengiriman", permintaanPengiriman.getNomorPengiriman());
+        return "success-delete-permintaan";
     }
 }

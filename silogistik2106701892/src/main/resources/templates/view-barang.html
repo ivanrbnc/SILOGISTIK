@@ -31,7 +31,7 @@
     </div>
     
     <div class="row justify-content-center">
-        <div class="card" style="width: 30rem;">
+        <div class="card">
             <div class="card-body">
                 <div>
                     <p class="card-text m-0"><b>Merk:</b></p>
@@ -59,7 +59,9 @@
                       <tbody>
                         <tr th:each="gudangBarang, iterationStatus : ${listGudangBarang}">
                           <td th:text="${iterationStatus.index + 1}"></td>
-                          <td th:text="${gudangBarang.gudang.nama}"></td>
+                          <td>
+                            <a th:href="@{/gudang/{idGudang}(idGudang=${gudangBarang.gudang.idGudang})}" th:text="${gudangBarang.gudang.nama}"></a>
+                          </td>
                           <td th:text="${gudangBarang.gudang.alamatGudang}"></td>
                           <td th:text="${gudangBarang.stok}"></td>
                         </tr>
@@ -71,8 +73,8 @@
         </div>
     </div>
     <div class="text-center m-3">
-        <a type="button" class="btn btn-primary btn-md" th:href="@{/barang/{idBarang}/ubah(idBarang=${barang.sku})}">Edit</a>
         <a type="button" class="btn btn-secondary btn-md" href="/barang">Kembali</a>
+        <a type="button" class="btn btn-primary btn-md" th:href="@{/barang/{idBarang}/ubah(idBarang=${barang.sku})}">Edit</a>
     </div>
     </div>
 </body>
