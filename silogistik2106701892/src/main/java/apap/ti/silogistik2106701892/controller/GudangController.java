@@ -93,7 +93,7 @@ public class GudangController {
             Gudang gudang = gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang());
             Barang barang = gudangBarang.getBarang();
             Integer stok = gudangBarang.getStok();
-
+            
             gudangBarang.setGudang(gudang);
             gudangBarangService.saveGudangBarang(gudangBarang, gudang, barang, stok);
         }

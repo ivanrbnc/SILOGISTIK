@@ -31,27 +31,29 @@ public class Silogistik2106701892Application {
 	@Transactional
 	CommandLineRunner run (GudangService gudangService, KaryawanService karyawanService, GudangMapper gudangMapper, KaryawanMapper karyawanMapper){
 		return args -> {
-			// var faker = new Faker(new Locale("in-ID"));
+			if (gudangService.getAllGudang().size() == 0 && karyawanService.getAllKaryawan().size() == 0) {
+				var faker = new Faker(new Locale("in-ID"));
 
-			// for (int i = 0; i < 3; i++) {
-			// 	var gudangDTO = new CreateGudangRequestDTO();
-			// 	gudangDTO.setNama(faker.company().name());
-			// 	gudangDTO.setAlamatGudang(faker.address().fullAddress());
+				for (int i = 0; i < 3; i++) {
+					var gudangDTO = new CreateGudangRequestDTO();
+					gudangDTO.setNama(faker.company().name());
+					gudangDTO.setAlamatGudang(faker.address().fullAddress());
 
-			// 	var gudang = gudangMapper.createGudangRequestDTOToGudang(gudangDTO);
-			// 	gudangService.saveGudang(gudang);
-			// }
+					var gudang = gudangMapper.createGudangRequestDTOToGudang(gudangDTO);
+					gudangService.saveGudang(gudang);
+				}
 
-			// for (int i = 0; i < 10; i++) {
-			// 	var karyawanDTO = new CreateKaryawanRequestDTO();
+				for (int i = 0; i < 10; i++) {
+					var karyawanDTO = new CreateKaryawanRequestDTO();
 
-			// 	karyawanDTO.setNama(faker.name().fullName());
-			// 	karyawanDTO.setJenisKelamin(new Random().nextInt(2) + 1);
-			// 	karyawanDTO.setTanggalLahir(faker.date().birthday(19, 25));
+					karyawanDTO.setNama(faker.name().fullName());
+					karyawanDTO.setJenisKelamin(new Random().nextInt(2) + 1);
+					karyawanDTO.setTanggalLahir(faker.date().birthday(19, 25));
 
-			// 	var karyawan = karyawanMapper.createKaryawanRequestDTOToKaryawan(karyawanDTO);
-			// 	karyawanService.saveKaryawan(karyawan);
-			// }
+					var karyawan = karyawanMapper.createKaryawanRequestDTOToKaryawan(karyawanDTO);
+					karyawanService.saveKaryawan(karyawan);
+				}
+			}
 		};
 	}
 }
