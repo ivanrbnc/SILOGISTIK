@@ -24,6 +24,7 @@ public class Barang {
     @NotNull
     @Column(name = "merk", nullable = false)
     private String merk;
+    private String merkLower;
 
     @NotNull
     @Column(name = "harga_barang", nullable = false)

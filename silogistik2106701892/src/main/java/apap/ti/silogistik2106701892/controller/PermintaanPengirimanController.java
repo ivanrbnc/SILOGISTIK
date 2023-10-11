@@ -45,7 +45,7 @@ public class PermintaanPengirimanController {
     
     @GetMapping("permintaan-pengiriman")
     public String listPermintaan(Model model) {
-        var listPermintaan = permintaanPengirimanService.getAllPermintaan();
+        var listPermintaan = permintaanPengirimanService.getAllPermintaanSortByWaktuPermintaan();
 
         model.addAttribute("listPermintaan", listPermintaan);
         return "viewall-permintaan";
@@ -59,6 +59,7 @@ public class PermintaanPengirimanController {
         String[] types = {"Same Day", "Kilat", "Reguler", "Hemat"};
         String type = types[permintaanPengiriman.getJenisLayanan() - 1];
 
+        // Get request time and calculate it with now time to decide if it's cancellable
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime createdTime = permintaanPengiriman.getWaktuPermintaan();
 
@@ -85,7 +86,6 @@ public class PermintaanPengirimanController {
 
         model.addAttribute("listKaryawan", listKaryawan);
         model.addAttribute("permintaanPengirimanBarangDTO", permintaanPengirimanBarangDTO);
-
         return "form-create-request";
     }
 
@@ -114,25 +114,42 @@ public class PermintaanPengirimanController {
             return "error-view"; 
         }
 
-        Integer totalKuantitasPesanan = 0;
-
-        for (PermintaanPengirimanBarang permintaan : createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang()) {
-            totalKuantitasPesanan += permintaan.getKuantitasPesanan();
+        // Null rows
+        if (createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang() == null) {
+            var errorMessage = "Spesifikasi barang yang ingin dikirim belum terisi!";
+            model.addAttribute("errorMessage", errorMessage);
+            return "error-view"; 
         }
 
         PermintaanPengiriman permintaanPengiriman = permintaanPengirimanMapper.createPermintaanPengirimanRequestDTOToPermintaanPengiriman(createPermintaanPengirimanRequestDTO);
         
+        // Calculating delivery number
+        String request = "REQ";
+
+        Integer totalKuantitasPesanan = 0;
+
+        for (PermintaanPengirimanBarang permintaan : createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang()) {
+            // Null quantities
+            if (permintaan.getKuantitasPesanan() == null) {
+                var errorMessage = "Terdapat kuantitas pesanan yang belum terisi!";
+                model.addAttribute("errorMessage", errorMessage);
+                return "error-view"; 
+            }
+            
+            totalKuantitasPesanan += permintaan.getKuantitasPesanan();
+        }
+
+        String quantity = String.format("%02d", totalKuantitasPesanan > 99 ? totalKuantitasPesanan % 100 : totalKuantitasPesanan);
+
+        String[] types = {"SAM", "KIL", "REG", "HEM"};
+        String type = types[createPermintaanPengirimanRequestDTO.getJenisLayanan() - 1];
+
+        // Set date attribute by its format
         LocalDateTime currentDateTime = LocalDateTime.now();
         permintaanPengiriman.setWaktuPermintaan(currentDateTime);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         permintaanPengiriman.setWaktuPermintaanString(currentDateTime.format(formatter));
-
-        String request = "REQ";
-        String quantity = String.format("%02d", totalKuantitasPesanan > 99 ? totalKuantitasPesanan % 100 : totalKuantitasPesanan);
-
-        String[] types = {"SAM", "KIL", "REG", "HEM"};
-        String type = types[createPermintaanPengirimanRequestDTO.getJenisLayanan() - 1];
 
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm:ss");
         permintaanPengiriman.setNomorPengiriman(request + quantity + type + currentDateTime.format(formatter2));
@@ -144,6 +161,7 @@ public class PermintaanPengirimanController {
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         permintaanPengiriman.setTanggalPengirimanString(tempTime.format(formatter4));
         
+        // Save delivery request and save every relation of it with it's items
         permintaanPengirimanService.savePermintaanPengiriman(permintaanPengiriman);        
 
         for (PermintaanPengirimanBarang permintaan : createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang()) {

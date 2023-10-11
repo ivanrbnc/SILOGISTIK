@@ -19,12 +19,18 @@ public class BarangServiceImpl implements BarangService{
 
     @Override
     public void saveBarang(Barang barang) {
+        barang.setMerkLower(barang.getMerk().toLowerCase());
         barangDb.save(barang);
     }
 
     @Override
     public List<Barang> getAllBarang() {
         return barangDb.findAll();
+    }
+
+    @Override
+    public List<Barang> getAllBarangSortByMerk() {
+        return barangDb.findAllByOrderByMerkLowerAsc();
     }
 
     @Override
@@ -54,6 +60,7 @@ public class BarangServiceImpl implements BarangService{
         Barang barang = getBarangById(barangFromDto.getSku());
         if (barang != null){
             barang.setMerk(barangFromDto.getMerk());
+            barang.setMerkLower(barangFromDto.getMerk().toLowerCase());
             barang.setHargaBarang(barangFromDto.getHargaBarang());
             barangDb.save(barang);
         }
@@ -64,4 +71,6 @@ public class BarangServiceImpl implements BarangService{
         Barang barang = getBarangById(sku);
         return barang.getHargaBarang() * kuantitasPesanan;
     }
+
+    
 }

@@ -25,6 +25,11 @@ public class PermintaanPengirimanServiceImpl implements PermintaanPengirimanServ
     }
 
     @Override
+    public List<PermintaanPengiriman> getAllPermintaanSortByWaktuPermintaan() {
+        return permintaanPengirimanDb.findAllByOrderByWaktuPermintaanDesc();
+    }
+
+    @Override
     public PermintaanPengiriman getPermintaanById(Long idPermintaanPengiriman) {
         for (PermintaanPengiriman permintaan : getAllPermintaan()){
             if (permintaan.getIdPermintaanPengiriman().equals(idPermintaanPengiriman)){

@@ -33,6 +33,6 @@ public class CreatePermintaanPengirimanRequestDTO {
     @NotNull(message = "Karyawan tidak boleh kosong!")
     private Karyawan karyawan;
 
-    // Restriction isn't required as this request only used as container
+    // Restriction isn't required as this request only used as container and already restricted in controller
     private List<PermintaanPengirimanBarang> listPermintaanPengirimanBarang;
 }

@@ -11,4 +11,6 @@ import apap.ti.silogistik2106701892.model.PermintaanPengiriman;
 @Repository
 public interface PermintaanPengirimanDb extends JpaRepository<PermintaanPengiriman, Long>{
     List<PermintaanPengiriman> findByWaktuPermintaanBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    List<PermintaanPengiriman> findAllByOrderByWaktuPermintaanDesc();
+
 }

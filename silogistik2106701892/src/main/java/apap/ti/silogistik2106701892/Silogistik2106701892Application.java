@@ -29,7 +29,8 @@ public class Silogistik2106701892Application {
 
 	@Bean
 	@Transactional
-	CommandLineRunner run (GudangService gudangService, KaryawanService karyawanService, GudangMapper gudangMapper, KaryawanMapper karyawanMapper){
+	CommandLineRunner run (GudangService gudangService, KaryawanService karyawanService,
+							GudangMapper gudangMapper, KaryawanMapper karyawanMapper){
 		return args -> {
 			if (gudangService.getAllGudang().size() == 0 && karyawanService.getAllKaryawan().size() == 0) {
 				var faker = new Faker(new Locale("in-ID"));

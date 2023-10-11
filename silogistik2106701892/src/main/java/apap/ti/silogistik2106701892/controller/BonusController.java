@@ -41,13 +41,14 @@ public class BonusController {
         List<PermintaanPengiriman> listShowed = null; 
 
         if (sku != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+
+            // Convert the date input
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate temp = LocalDate.parse(startDate, formatter);
             LocalDateTime tempStartDate = temp.atStartOfDay();
             LocalDate temp2 = LocalDate.parse(endDate, formatter);
             LocalDateTime tempEndDate = temp2.atStartOfDay();
             
-
             Barang barang = barangService.getBarangById(sku);
 
             List<PermintaanPengiriman> listPermintaanPengiriman = permintaanPengirimanService.getBetweenTime(tempStartDate, tempEndDate);
@@ -56,6 +57,7 @@ public class BonusController {
             
             listShowed = new ArrayList<>();
 
+            // Trying to look for the intersection
             for (PermintaanPengiriman permintaanPengiriman : listPermintaanPengiriman) {
                 for (PermintaanPengirimanBarang permintaanPengirimanBarang : listPermintaanPengirimanBarang) {
                     if (permintaanPengirimanBarang.getPermintaanPengiriman().equals(permintaanPengiriman)) {
@@ -64,6 +66,7 @@ public class BonusController {
                 }
             }
 
+            // Revert it back to null if there is no intersection
             if (listShowed.size() == 0) {
                 listShowed = null;
             }

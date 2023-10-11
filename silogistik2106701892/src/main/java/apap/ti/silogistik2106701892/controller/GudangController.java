@@ -37,6 +37,7 @@ public class GudangController {
     @GetMapping("gudang")
     public String listGudang(Model model) {
         var listGudang = gudangService.getAllGudang();
+
         model.addAttribute("listGudang", listGudang);
         return "viewall-gudang";
     }
@@ -45,6 +46,7 @@ public class GudangController {
     public String detailGudang(@PathVariable("idGudang") Long idGudang, Model model) {
         var gudang = gudangService.getGudangById(idGudang);
         var listGudangBarang = gudangBarangService.getAllByGudang(gudang);
+
         model.addAttribute("gudang", gudang);
         model.addAttribute("listGudangBarang", listGudangBarang);
         return "view-gudang";
@@ -60,7 +62,6 @@ public class GudangController {
         model.addAttribute("idGudang", idGudang);
         model.addAttribute("gudang", gudang);
         model.addAttribute("gudangBarangDTO", gudangBarangDTO);
-
         return "form-restock-barang";
     }
 
@@ -89,7 +90,21 @@ public class GudangController {
             return "error-view"; 
         }
 
+        // Null rows
+        if (createGudangBarangRequestDTO.getListGudangBarang() == null) {
+            var errorMessage = "Spesifikasi restock belum terisi!";
+            model.addAttribute("errorMessage", errorMessage);
+            return "error-view"; 
+        }
+
         for (GudangBarang gudangBarang : createGudangBarangRequestDTO.getListGudangBarang()) {
+            // Null stock
+            if (gudangBarang.getStok() == null) {
+                var errorMessage = "Terdapat stok yang belum terisi!";
+                model.addAttribute("errorMessage", errorMessage);
+                return "error-view"; 
+            }
+
             Gudang gudang = gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang());
             Barang barang = gudangBarang.getBarang();
             Integer stok = gudangBarang.getStok();
@@ -99,14 +114,12 @@ public class GudangController {
         }
 
         model.addAttribute("namaGudang", gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang()).getNama());
-
         return "success-restock-barang";
     }
 
     @GetMapping("gudang/cari-barang")
     public String findRelatedGudang(@RequestParam(value = "sku", required = false) String sku, Model model) {
-        
-        List<Barang> listBarang = barangService.getAllBarang();
+        List<Barang> listBarang = barangService.getAllBarangSortByMerk();
         List<GudangBarang> listGudangBarang = null;
 
         if (sku != null && !sku.isEmpty()) {

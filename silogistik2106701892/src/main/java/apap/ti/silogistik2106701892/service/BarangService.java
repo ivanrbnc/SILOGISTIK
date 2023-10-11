@@ -7,6 +7,7 @@ import apap.ti.silogistik2106701892.model.Barang;
 public interface BarangService {
     void saveBarang(Barang barang);
     List<Barang> getAllBarang();
+    List<Barang> getAllBarangSortByMerk();
     Barang getBarangById(String sku);
     int getTotalStok(Barang barang);
     Long getTotalHarga(String sku, Integer kuantitasPesanan);

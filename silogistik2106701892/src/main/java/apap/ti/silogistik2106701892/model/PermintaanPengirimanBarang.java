@@ -28,5 +28,5 @@ public class PermintaanPengirimanBarang {
 
     @NotNull
     @Column(name = "kuantitas_pesanan", nullable = false)
-    private Integer kuantitasPesanan;
+    private Integer kuantitasPesanan = 0;
 }

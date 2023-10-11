@@ -38,7 +38,6 @@ public class HomeController {
         model.addAttribute("barangSize", barangSize);
         model.addAttribute("karyawanSize", karyawanSize);
         model.addAttribute("permintaanPengirimanSize", permintaanPengirimanSize);
-
         return "home";
     }
 }

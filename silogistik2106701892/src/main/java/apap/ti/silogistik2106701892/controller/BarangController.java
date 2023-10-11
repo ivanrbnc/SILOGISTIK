@@ -33,7 +33,6 @@ public class BarangController {
 
         model.addAttribute("listBarang", listBarang);
         model.addAttribute("barangService", barangService);
-
         return "viewall-barang";
     }
 
@@ -66,7 +65,6 @@ public class BarangController {
         var barangDTO = new CreateBarangRequestDTO();
 
         model.addAttribute("barangDTO", barangDTO);
-
         return "form-create-barang";
     }
 
@@ -80,14 +78,15 @@ public class BarangController {
         }
         
         var barang = barangMapper.createBarangRequestDTOToBarang(createBarangRequestDTO);
+
         String[] types = {"ELEC", "CLOT", "FOOD", "COSM", "TOOL"};
         String type = types[createBarangRequestDTO.getTipeBarang() - 1];
         String skuNumber = String.format("%03d", barangService.getAllBarang().size() + 1);
         barang.setSku(type + skuNumber);
+
         barangService.saveBarang(barang);
 
         model.addAttribute("sku", barang.getSku());
-
         return "success-add-barang";
     }
 

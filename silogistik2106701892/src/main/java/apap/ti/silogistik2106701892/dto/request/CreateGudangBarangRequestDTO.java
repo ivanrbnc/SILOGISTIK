@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CreateGudangBarangRequestDTO {
-    // Restriction isn't required as this request only used as container
+    // Restriction isn't required as this request only used as container and already restricted in controller
     private Long idGudang;
     private List<GudangBarang> listGudangBarang;
 }

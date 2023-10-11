@@ -71,7 +71,9 @@
                         <tr th:each="permintaanPengiriman, iterationStatus : ${listShowed}">
                           <td th:text="${iterationStatus.index + 1}"></td>
                           <td th:text="${permintaanPengiriman.waktuPermintaanString}"></td>
-                          <td th:text="${permintaanPengiriman.nomorPengiriman}"></td>
+                          <td>
+                            <a th:text="${permintaanPengiriman.nomorPengiriman}" th:href="@{/permintaan-pengiriman/{idPermintaanPengiriman}(idPermintaanPengiriman=${permintaanPengiriman.idPermintaanPengiriman})}"></a>
+                          </td>
                           <td th:text="${permintaanPengiriman.namaPenerima}"></td>
                           <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
                           <td th:text="${permintaanPengiriman.tanggalPengirimanString}"></td>
