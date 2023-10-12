@@ -65,10 +65,13 @@ public class PermintaanPengirimanController {
 
         Duration duration = Duration.between(currentDateTime, createdTime);
 
-        if (duration.toHours() < 24) {
-            model.addAttribute("canCancel", true);
+        Boolean canCancel = true;
+
+        if (duration.toHours() <= -24) {
+            canCancel = false;
+            model.addAttribute("canCancel", canCancel);
         } else {
-            model.addAttribute("canCancel", false);
+            model.addAttribute("canCancel", canCancel);
         }
         
         model.addAttribute("permintaanPengiriman", permintaanPengiriman);
@@ -132,6 +135,13 @@ public class PermintaanPengirimanController {
             // Null quantities
             if (permintaan.getKuantitasPesanan() == null) {
                 var errorMessage = "Terdapat kuantitas pesanan yang belum terisi!";
+                model.addAttribute("errorMessage", errorMessage);
+                return "error-view"; 
+            }
+
+            // Over the stock at warehouse
+            if (permintaan.getKuantitasPesanan() > barangService.getTotalStok(permintaan.getBarang())) {
+                var errorMessage = "Terdapat kuantitas pesanan yang melebihi stok di gudang!";
                 model.addAttribute("errorMessage", errorMessage);
                 return "error-view"; 
             }

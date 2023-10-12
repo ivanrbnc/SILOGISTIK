@@ -14,6 +14,7 @@ import apap.ti.silogistik2106701892.dto.request.CreateBarangRequestDTO;
 import apap.ti.silogistik2106701892.dto.request.UpdateBarangRequestDTO;
 import apap.ti.silogistik2106701892.service.BarangService;
 import apap.ti.silogistik2106701892.service.GudangBarangService;
+import jakarta.validation.Valid;
 
 @Controller
 public class BarangController {
@@ -69,7 +70,7 @@ public class BarangController {
     }
 
     @PostMapping("barang/tambah")
-    public String addBarang(@ModelAttribute CreateBarangRequestDTO createBarangRequestDTO, BindingResult bindingResult, Model model) {
+    public String addBarang(@Valid @ModelAttribute CreateBarangRequestDTO createBarangRequestDTO, BindingResult bindingResult, Model model) {
         // https://www.baeldung.com/spring-mvc-custom-validator
         if (bindingResult.hasErrors()) {
             var errorMessage = bindingResult.getFieldError().getDefaultMessage();
