@@ -7,7 +7,7 @@ import apap.ti.silogistik2106701892.model.PermintaanPengiriman;
 import apap.ti.silogistik2106701892.model.PermintaanPengirimanBarang;
 
 public interface PermintaanPengirimanBarangService {
-    void savePermintaanPengirimanBarang(PermintaanPengirimanBarang permintaanPengirimanBarang);
+    void savePermintaanPengirimanBarang(PermintaanPengirimanBarang permintaanPengirimanBarang, PermintaanPengiriman permintaanPengiriman, Barang barang, Integer kuantitasPengiriman);
     List<PermintaanPengirimanBarang> getAllPermintaan();
     List<PermintaanPengirimanBarang> getPermintaanPengirimanBarangByPermintaanPengiriman(PermintaanPengiriman permintaanPengiriman);
     List<PermintaanPengirimanBarang> getPermintaanPengirimanBarangByBarang(Barang barang);

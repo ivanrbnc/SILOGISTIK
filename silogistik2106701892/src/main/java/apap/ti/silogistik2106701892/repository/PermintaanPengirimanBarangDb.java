@@ -13,4 +13,5 @@ import java.util.List;
 public interface PermintaanPengirimanBarangDb extends JpaRepository<PermintaanPengirimanBarang, Long>{
     List<PermintaanPengirimanBarang> findByPermintaanPengiriman(PermintaanPengiriman permintaanPengiriman);
     List<PermintaanPengirimanBarang> findByBarang(Barang barang);
+    PermintaanPengirimanBarang findByPermintaanPengirimanAndBarang(PermintaanPengiriman permintaanPengiriman, Barang barang);
 }

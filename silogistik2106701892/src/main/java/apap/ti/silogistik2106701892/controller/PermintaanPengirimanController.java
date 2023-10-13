@@ -133,7 +133,7 @@ public class PermintaanPengirimanController {
 
         for (PermintaanPengirimanBarang permintaan : createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang()) {
             // Null quantities
-            if (permintaan.getKuantitasPesanan() == null) {
+            if (permintaan.getKuantitasPesanan() == null || permintaan.getKuantitasPesanan() <= 0) {
                 var errorMessage = "Terdapat kuantitas pesanan yang belum terisi!";
                 model.addAttribute("errorMessage", errorMessage);
                 return "error-view"; 
@@ -176,7 +176,7 @@ public class PermintaanPengirimanController {
 
         for (PermintaanPengirimanBarang permintaan : createPermintaanPengirimanRequestDTO.getListPermintaanPengirimanBarang()) {
             permintaan.setPermintaanPengiriman(permintaanPengiriman);
-            permintaanPengirimanBarangService.savePermintaanPengirimanBarang(permintaan);
+            permintaanPengirimanBarangService.savePermintaanPengirimanBarang(permintaan, permintaan.getPermintaanPengiriman(), permintaan.getBarang(), permintaan.getKuantitasPesanan());
         }
 
         model.addAttribute("nomorPengiriman", permintaanPengiriman.getNomorPengiriman());

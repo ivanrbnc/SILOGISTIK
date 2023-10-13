@@ -19,8 +19,15 @@ public class PermintaanPengirimanBarangServiceImpl implements PermintaanPengirim
     PermintaanPengirimanService permintaanPengirimanService;
 
     @Override
-    public void savePermintaanPengirimanBarang(PermintaanPengirimanBarang permintaanPengirimanBarang) {
-        permintaanPengirimanBarangDb.save(permintaanPengirimanBarang);
+    public void savePermintaanPengirimanBarang(PermintaanPengirimanBarang permintaanPengirimanBarang, PermintaanPengiriman permintaanPengiriman, Barang barang, Integer kuantitasPengiriman) {
+        PermintaanPengirimanBarang permintaanPengirimanBarangExisted = permintaanPengirimanBarangDb.findByPermintaanPengirimanAndBarang(permintaanPengiriman, barang);
+        
+        if (!(permintaanPengirimanBarangExisted == null)) {
+            permintaanPengirimanBarangExisted.setKuantitasPesanan(permintaanPengirimanBarangExisted.getKuantitasPesanan() + kuantitasPengiriman);
+            permintaanPengirimanBarangDb.save(permintaanPengirimanBarangExisted);
+        } else {
+            permintaanPengirimanBarangDb.save(permintaanPengirimanBarang);
+        }  
     }
 
     @Override
