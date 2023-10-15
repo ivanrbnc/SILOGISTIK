@@ -41,4 +41,24 @@ public class GudangBarangServiceImpl implements GudangBarangService{
     public List<GudangBarang> getAllByBarang(Barang barang) {
         return gudangBarangDb.findByBarang(barang);
     }
+
+    @Override
+    public void deleteGudangBarang(GudangBarang gudangBarang) {
+        gudangBarangDb.delete(gudangBarang);
+    }
+
+    @Override
+    public GudangBarang getGudangBarangById(Long idGudangBarang) {
+        for (GudangBarang gudangBarang : getAllGudangBarang()){
+            if (gudangBarang.getIdGudangBarang().equals(idGudangBarang)){
+                return gudangBarang;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public GudangBarang getGudangBarangByGudangAndBarang(Gudang gudang, Barang barang) {
+        return gudangBarangDb.findByGudangAndBarang(gudang, barang);
+    }
 }

@@ -98,6 +98,12 @@ public class GudangController {
         }
 
         for (GudangBarang gudangBarang : createGudangBarangRequestDTO.getListGudangBarang()) {
+
+            // To help verifying negative conditional below, we need to set gudang first
+            gudangBarang.setGudang(gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang()));
+
+            GudangBarang gudangBarangExisted = gudangBarangService.getGudangBarangByGudangAndBarang(gudangBarang.getGudang(), gudangBarang.getBarang());
+              
             // Null stock
             if (gudangBarang.getStok() == null) {
                 var errorMessage = "Terdapat stok yang belum terisi!";
@@ -105,11 +111,28 @@ public class GudangController {
                 return "error-view"; 
             }
 
-            Gudang gudang = gudangService.getGudangById(createGudangBarangRequestDTO.getIdGudang());
+            // Negative stock is not allowed if gudang barang is not existed yet
+            if (gudangBarang.getStok() < 0 && gudangBarangExisted == null) {
+                var errorMessage = "Terdapat stok yang belum terisi!";
+                model.addAttribute("errorMessage", errorMessage);
+                return "error-view"; 
+            }
+
+            // Negative stock is allowed if only your storage sufficient
+            if (gudangBarang.getStok() < 0 && gudangBarangExisted != null) {
+                if (gudangBarang.getStok() + gudangBarangExisted.getStok() < 0) {
+                    var errorMessage = "Terdapat kekurangan stok pada gudang!";
+                    model.addAttribute("errorMessage", errorMessage);
+                    return "error-view"; 
+                }
+            }
+
+            // P.S. Negative Stock in here will translate as sending item from warehouse
+
+            Gudang gudang = gudangBarang.getGudang();
             Barang barang = gudangBarang.getBarang();
             Integer stok = gudangBarang.getStok();
-            
-            gudangBarang.setGudang(gudang);
+
             gudangBarangService.saveGudangBarang(gudangBarang, gudang, barang, stok);
         }
 
@@ -130,5 +153,15 @@ public class GudangController {
         model.addAttribute("listBarang", listBarang);
         model.addAttribute("listGudangBarang", listGudangBarang);
         return "viewsearch-barang";
+    }
+
+    @GetMapping("gudang/{idGudangBarang}/delete")
+    public String deleteGudangBarang(@PathVariable("idGudangBarang") Long idGudangBarang, Model model) {
+        var gudangBarang = gudangBarangService.getGudangBarangById(idGudangBarang);
+        gudangBarangService.deleteGudangBarang(gudangBarang);
+        
+        model.addAttribute("namaGudang", gudangBarang.getGudang().getNama());
+        model.addAttribute("merk", gudangBarang.getBarang().getMerk());
+        return "success-delete-gudang-barang";
     }
 }

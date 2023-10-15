@@ -48,6 +48,7 @@
                               <th>Merk</th>
                               <th>Stok</th>
                               <th>Harga</th>
+                              <th>Action</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -59,6 +60,9 @@
                           <td th:text="${gudangBarang.barang.merk}"></td>
                           <td th:text="${gudangBarang.stok}"></td>
                           <td th:text="Rp+${gudangBarang.barang.hargaBarang}"></td>
+                          <td>
+                            <a type="button" class="btn btn-secondary btn-md" th:href="@{/gudang/{idGudangBarang}/delete(idGudangBarang=${gudangBarang.idGudangBarang})}">Delete</a>
+                          </td>
                         </tr>
                       </tbody>
                     </table>

@@ -11,4 +11,7 @@ public interface GudangBarangService {
     List<GudangBarang> getAllGudangBarang();
     List<GudangBarang> getAllByGudang(Gudang gudang);
     List<GudangBarang> getAllByBarang(Barang barang);
+    void deleteGudangBarang(GudangBarang gudangBarang);
+    GudangBarang getGudangBarangById(Long idGudangBarang);
+    GudangBarang getGudangBarangByGudangAndBarang(Gudang gudang, Barang barang);
 }
