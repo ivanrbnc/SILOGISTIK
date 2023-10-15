@@ -33,7 +33,7 @@ public class Silogistik2106701892Application {
 							GudangMapper gudangMapper, KaryawanMapper karyawanMapper){
 		return args -> {
 			if (gudangService.getAllGudang().size() == 0 && karyawanService.getAllKaryawan().size() == 0) {
-				var faker = new Faker(new Locale("in-ID"));
+				var faker = new Faker(new Locale("en-US"));
 
 				for (int i = 0; i < 3; i++) {
 					var gudangDTO = new CreateGudangRequestDTO();
