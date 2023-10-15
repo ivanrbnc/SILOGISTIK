@@ -114,7 +114,7 @@ public class BarangController {
     }
 
     @PostMapping(value="barang/{idBarang}/ubah")
-    public String updateBarang(@ModelAttribute UpdateBarangRequestDTO barangDTO, BindingResult bindingResult, Model model) {
+    public String updateBarang(@Valid @ModelAttribute UpdateBarangRequestDTO barangDTO, BindingResult bindingResult, Model model) {
         // https://www.baeldung.com/spring-mvc-custom-validator
         if (bindingResult.hasErrors()) {
             var errorMessage = bindingResult.getFieldError().getDefaultMessage();
