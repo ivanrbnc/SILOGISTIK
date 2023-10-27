@@ -1,7 +1,7 @@
 # Individual Assignment APAP
 
 ## Brief Description
-This project is all about warehouses and delivery where you can assign items into warehouses and send them to someone who ordered them. This project use Indonesian and English language. Few words that you'll meet are Gudang (Warehouse), Barang (Item), Permintaan (Request), and Pengiriman (Delivery). The rest of the words are free for you to translate them.
+This project is made for warehouses and deliveries to manage a better inventory system regarding the issue. The project will be available in Bahasa and in English. Some of the few words that you will meet are *Gudang* for warehouse, *Barang* for item, *Permintaan* for request and *Pengiriman* for delivery. You are free to translate the words if needed.
 
 ## Upcoming Updates
 * Simplify each controller by move some codes into services
@@ -9,7 +9,7 @@ This project is all about warehouses and delivery where you can assign items int
 * Create delivery feature that decrement stock in warehouses
 
 ## How to run
-1. Run your Docker Dekstop
+1. Run your Docker Desktop
 	
 	![preview_docker](https://cdn.discordapp.com/attachments/935244474349678633/1163126328648810496/image.png?ex=653e70ce&is=652bfbce&hm=585fe8d5ec3d67a917651dea2a9d89b410f9fa7e645156959859aa471c0d9f83&)
 2. Create database named "silogistik" in Dbeaver. 
@@ -30,12 +30,12 @@ This project is all about warehouses and delivery where you can assign items int
 	...\silogistik2106701892\src\main\java\apap\ti\silogistik2106701892
 	```
 
-5. If you want to customize database name, database username, database password, or even the port, change it through here.
+5. If you want to customize database name, username, password, or port, change it through here.
 	```
 	...\silogistik2106701892\src\main\resouces\application.properties
 	```
 
-	If you are already satisfied, create new connection through DBeaver.
+   	then create new connection through DBeaver.
 
 	![new_connection](https://cdn.discordapp.com/attachments/935244474349678633/1164184410443231302/image.png?ex=65424a38&is=652fd538&hm=6bb8b45ff1be2d52b7f586007da903245bb72a826986e74d080cc3b13b8918f6&)
 
