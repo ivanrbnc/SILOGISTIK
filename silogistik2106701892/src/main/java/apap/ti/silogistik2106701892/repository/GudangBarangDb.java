@@ -10,7 +10,7 @@ import apap.ti.silogistik2106701892.model.Gudang;
 import apap.ti.silogistik2106701892.model.GudangBarang;
 
 @Repository
-public interface GudangBarangDb extends JpaRepository<GudangBarang, String>{
+public interface GudangBarangDb extends JpaRepository<GudangBarang, Long>{
     List<GudangBarang> findByGudang(Gudang gudang);
     List<GudangBarang> findByBarang(Barang barang);
     GudangBarang findByGudangAndBarang(Gudang gudang, Barang barang);

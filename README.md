@@ -3,10 +3,20 @@
 ## Brief Description
 This project is a simple project about warehouses and delivery where you can assign items into warehouses and send them to someone who ordered them. This project use Indonesian and English language. Few words that you'll meet are Gudang (Warehouse), Barang (Item), Permintaan (Request), and Pengiriman (Delivery). The rest of the words are free for you to translate them.
 
+## Languages, Framework, Etc
+* Java
+* Spring Boot
+* Gradle
+* Dbeaver
+* Docker
+* HTML, CSS
+
 ## Upcoming Updates
 * Simplify each controller by move some codes into services
 * Make Restock feature more efficient by minimizing DTO request.
 * Create delivery feature that decrement stock in warehouses
+* Validation for delivery request
+* A service that serve as a translation between number and a string
 
 ## How to run
 1. Run your Docker Dekstop
